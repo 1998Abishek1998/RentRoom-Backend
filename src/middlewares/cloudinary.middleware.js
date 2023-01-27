@@ -3,9 +3,6 @@ const cloudinary = require('cloudinary').v2;
 // Return "https" URLs by setting secure: true
 require('dotenv/config')
 
-// const IMAGE_CLOUD_NAME='dlgsjsoe2' 
-// const IMAGE_API_KEY=884745647853827 
-// const IMAGE_API_SECRET='VYuXGeOdzvMbti0RTQA3yYHgccA'
 cloudinary.config({
   secure: true,
   api_key: process.env.IMAGE_API_KEY,

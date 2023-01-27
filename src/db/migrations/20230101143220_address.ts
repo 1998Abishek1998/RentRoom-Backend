@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('address_name').notNullable()
         table.float('lat').notNullable()
         table.float('lng').notNullable()
+        table.boolean('is_user').notNullable()
     })
 }
 
