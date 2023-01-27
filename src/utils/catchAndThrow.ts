@@ -6,9 +6,19 @@ export const catchAsync = (fn: (arg0: Request, arg1: Response, arg2: NextFunctio
     };
 };
 
-export const responseHandler = (message: string, Data: any, res: Response, statusCode: number) => {
+export const responseHandler = (message: string, data: any, res: Response, statusCode: number) => {
   res.status(statusCode).json({
     message,
-    Data
+    data
+  })
+}
+
+export const paginatedResponse = (message: string, data: any, res: Response, statusCode: number, limit: number, offset: number, total: number) => {
+  res.status(statusCode).json({
+    message,
+    data,
+    offset,
+    limit,
+    total,
   })
 }

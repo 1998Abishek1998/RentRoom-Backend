@@ -1,6 +1,6 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router } from "express";
 import AppRouter from "../../interface/appRouter.interface";
-import { createRoom, getAllRooms } from "./room.handler";
+import { createRoom, getAllRooms, getSingleRoom, updateRoom } from "./room.handler";
 import validateschemaMiddleware from "../../middlewares/validateschema.middleware";
 import CreateRoomPayloadSchema from "../../zodSchemas/CreateRoomPayloadSchema";
 import { authenticate } from "../../middlewares/authentication.middleware";
@@ -14,8 +14,15 @@ class RoomRouter implements AppRouter{
     }
 
     private initializeRoutes(){
-        this.router.post(`${this.path}/:userId`,validateschemaMiddleware(CreateRoomPayloadSchema), createRoom)
-        this.router.get(`${this.path}`, authenticate, getAllRooms)
+        
+        this.router.route(`${this.path}`)
+            .get(getAllRooms)
+            .post(authenticate, validateschemaMiddleware(CreateRoomPayloadSchema), createRoom)
+
+        this.router
+            .route(`${this.path}/:roomId`)
+            .get(authenticate, getSingleRoom)
+            .put(authenticate ,validateschemaMiddleware(CreateRoomPayloadSchema), updateRoom)
     }
 }
 

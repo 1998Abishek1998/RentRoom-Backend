@@ -4,7 +4,9 @@ import { IdInterface } from "./users.repo"
 
 interface RoomRepo{
     createRoom(payload: CreateRoomPayload, addressId: IdInterface, userId: string): Promise<number | undefined>
-    fetchRooms(filter: any): Promise<any>
+    fetchRooms(filter: RoomsFilter): Promise<any>
+    updateRooms(id: number): Promise<any>
+    fetchSingleRoom(id: Number): Promise<any>
 }
 
 export default RoomRepo
