@@ -32,6 +32,12 @@ export const getSingleRoom: RequestHandler = catchAsync( async(req, res, next) =
 
 export const updateRoom: RequestHandler = catchAsync( async(req, res, next) => {
     const id = Number(req.params.id)
-    const room = await req.env.roomRepo.updateRooms(id)
+    const { addressId } = req.body
+    if(addressId){
+        const addr = await req.env.addressRepo.updateAddress(req.body, id)
+        if(!addr) return next( new AppError(400, 'Address not updated'))
+    } 
+    const room = await req.env.roomRepo.updateRooms(req.body, id)
+    if(!room) return next(new AppError(400, 'Room not updated'))
     responseHandler('room updated sucessfully', '', res, 200)
 })

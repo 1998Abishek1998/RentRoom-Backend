@@ -1,7 +1,9 @@
 import { Knex } from "knex";
 import RoomRepo, { RoomsFilter } from "../repo/room.repo";
-import { CreateRoomPayload } from "../routes/Room/CreateRoomPayloadSchema";
+import { CreateRoomPayload } from "../routes/Room/schemas/CreateRoomPayloadSchema";
 import { IdInterface } from "../repo/users.repo";
+import { UpdateRoomPayload } from "../routes/Room/schemas/UpdateRoomPayloadSchema";
+import { LooseObject } from "../interface/LooseObject";
 
 class DbRoomRepo implements RoomRepo{
     private db : Knex
@@ -9,8 +11,23 @@ class DbRoomRepo implements RoomRepo{
     constructor(db: Knex){
         this.db = db
     }
-    updateRooms(id: number): Promise<any> {
-        throw new Error("Method not implemented.");
+    async updateRooms(payload: UpdateRoomPayload, id: number): Promise<any> {
+        let val: LooseObject = {}
+        if(payload.phoneNumber) val.phone_number = payload.phoneNumber
+        if(payload.description) val.description = payload.description
+        if(payload.isActive) val.is_active = payload.isActive
+        if(payload.isVerified) val.is_verified = payload.isVerified
+        if(payload.isAvailable) val.is_available = payload.isAvailable
+        if(payload.isParkingAvailable) val.is_parking_available = payload.isParkingAvailable
+        if(payload.roomSlug) val.room_slug = payload.roomSlug
+        if(payload.roomType) val.room_type = payload.roomType
+        if(payload.images) val.images = payload.images
+        if(payload.roomName) val.room_name = payload.roomName
+        if(payload.price) val.price = payload.price
+        console.log(val,'val')
+        const room = await this.db('rooms as r').update(val).where('r.id','=', id)
+
+        return room   
     }
 
     async createRoom(payload: CreateRoomPayload , addressId: IdInterface, userId: string): Promise<any> {

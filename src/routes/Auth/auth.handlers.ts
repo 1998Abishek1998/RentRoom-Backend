@@ -8,8 +8,8 @@ import { isValidEmail, isValidPhoneNumber } from "../../utils/validators";
 export const signUp: RequestHandler = catchAsync( async(req, res, next) => {
     const {usersRepo, addressRepo, citizenShipRepo } = req.env
 
-    const citizen = await citizenShipRepo.citizenshipRegistration(req.body)
     const addr = await addressRepo.addressRegistration(req.body)
+    const citizen = await citizenShipRepo.citizenshipRegistration(req.body)
     const val  = await usersRepo.userRegistration(req.body, addr, citizen)
     
     if (!val) return next(new AppError(500, 'Unexpected error occured. Could not create an user at the moment. Please try again later'))

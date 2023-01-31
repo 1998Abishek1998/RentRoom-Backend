@@ -2,8 +2,9 @@ import { Router } from "express";
 import AppRouter from "../../interface/appRouter.interface";
 import { createRoom, getAllRooms, getSingleRoom, updateRoom } from "./room.handler";
 import validateschemaMiddleware from "../../middlewares/validateschema.middleware";
-import CreateRoomPayloadSchema from "./CreateRoomPayloadSchema";
+import CreateRoomPayloadSchema from "./schemas/CreateRoomPayloadSchema";
 import { authenticate } from "../../middlewares/authentication.middleware";
+import UpdateRoomPayloadSchema from "./schemas/UpdateRoomPayloadSchema";
 
 class RoomRouter implements AppRouter{
     public path = '/room'
@@ -22,7 +23,7 @@ class RoomRouter implements AppRouter{
         this.router
             .route(`${this.path}/:roomId`)
             .get(authenticate, getSingleRoom)
-            .put(authenticate ,validateschemaMiddleware(CreateRoomPayloadSchema), updateRoom)
+            .put(authenticate ,validateschemaMiddleware(UpdateRoomPayloadSchema), updateRoom)
     }
 }
 

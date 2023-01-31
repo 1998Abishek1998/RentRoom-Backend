@@ -1,11 +1,12 @@
 import { PaginationFilter } from "../interface/pagination.interface"
-import { CreateRoomPayload } from "../routes/Room/CreateRoomPayloadSchema"
+import { CreateRoomPayload } from "../routes/Room/schemas/CreateRoomPayloadSchema"
+import { UpdateRoomPayload } from "../routes/Room/schemas/UpdateRoomPayloadSchema"
 import { IdInterface } from "./users.repo"
 
 interface RoomRepo{
     createRoom(payload: CreateRoomPayload, addressId: IdInterface, userId: string): Promise<number | undefined>
     fetchRooms(filter: RoomsFilter): Promise<any>
-    updateRooms(id: number): Promise<any>
+    updateRooms(payload: UpdateRoomPayload, id: number): Promise<any>
     fetchSingleRoom(id: Number): Promise<any>
 }
 

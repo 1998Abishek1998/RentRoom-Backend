@@ -1,6 +1,6 @@
 import { Knex } from "knex";
-import UsersRepo, { IdInterface, ValidLogin } from "../repo/users.repo";
-import { UserRegistrationPayload } from "../routes/Auth/UserRegistrationPayloadSchema";
+import UsersRepo, { BeforeRegistration, IdInterface, ValidLogin } from "../repo/users.repo";
+import { UserRegistrationPayload } from "../routes/Auth/schemas/UserRegistrationPayloadSchema";
 import { compareSync, hashSync } from "bcrypt";
 
 class DbUsersRepo implements UsersRepo{
@@ -8,6 +8,18 @@ class DbUsersRepo implements UsersRepo{
     
     constructor(db: Knex){
         this.db = db
+    }
+
+    async isUserValid(payload: BeforeRegistration): Promise<any> {
+        const validUsername: { id: number, password: string} = await this.db('users as u')
+                .select('id')
+                .where(builder => {
+                    builder.whereLike(`u.email`, payload.email);
+                    builder.orWhereLike(`u.username`, payload.username)
+                    builder.orWhereLike(`u.phone_number`, payload.phoneNumber)
+                }).first()
+                
+        return validUsername
     }
    
     async userRegistration(payload: UserRegistrationPayload, id: IdInterface, citizenId: IdInterface): Promise<number | undefined> {
@@ -65,7 +77,7 @@ class DbUsersRepo implements UsersRepo{
                     builder.where('u.is_active', true)
                 }).first()
         
-        if(!validUsername.id) return 0
+        if(!validUsername) return 0
         
         const comparePass = compareSync(payload.password, validUsername.password)
         if(!comparePass) return 0

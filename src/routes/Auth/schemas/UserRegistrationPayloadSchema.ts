@@ -1,5 +1,5 @@
-import { isValidEmail, isValidPhoneNumber } from "../../utils/validators"
-import z from "../../utils/zod"
+import { isValidEmail, isValidPhoneNumber } from "../../../utils/validators"
+import z from "../../../utils/zod"
 
 const UserRegistrationPayloadSchema = z.object({
     username: z.string({ 'required_error': 'Please enter your username.'}),
@@ -12,7 +12,8 @@ const UserRegistrationPayloadSchema = z.object({
     address: z.string({ required_error: 'Please enter your address.'}),
     lat: z.number({ required_error: 'Please provide address latitude. '}),
     lng: z.number({ required_error: 'Please provide address longitude. '}),
-    citizenshipNumber: z.string({ required_error: 'Please enter your citizenship number '})
+    citizenshipNumber: z.string({ required_error: 'Please enter your citizenship number '}),
+    isUser: z.boolean({'required_error': 'Please verify the address is of user or room'})
 })
 
 export type UserRegistrationPayload = z.infer<typeof UserRegistrationPayloadSchema>

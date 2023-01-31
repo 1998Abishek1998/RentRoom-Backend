@@ -4,7 +4,7 @@ import { verifyToken } from "../utils/token";
 import { catchAsync } from "../utils/catchAndThrow";
 import AppError from "../utils/AppError";
 import Token from "../interface/token.interface";
-import { IUser } from "../repo/users.repo";
+import { BeforeRegistration, IUser } from "../repo/users.repo";
 
 export const authenticate: RequestHandler = catchAsync(async (req, res,next) => {
     const bearer = req.headers.authorization
@@ -19,4 +19,17 @@ export const authenticate: RequestHandler = catchAsync(async (req, res,next) => 
     req.user = user
     
     next()
+})
+
+export const beforeRegistration: RequestHandler = catchAsync( async( req, res, next) => {
+    const { email, username, phoneNumber } = req.body
+    const user: BeforeRegistration = Object.assign({
+        email,
+        username,
+        phoneNumber
+    })
+    const result = await req.env.usersRepo.isUserValid(user)
+
+    if(!result) return next()
+    else return next(new AppError(400, 'User with thi credentials already exists'))
 })
