@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import RoomRepo, { RoomsFilter } from "../repo/room.repo";
-import { CreateRoomPayload } from "../zodSchemas/CreateRoomPayloadSchema";
+import { CreateRoomPayload } from "../routes/Room/CreateRoomPayloadSchema";
 import { IdInterface } from "../repo/users.repo";
 
 class DbRoomRepo implements RoomRepo{

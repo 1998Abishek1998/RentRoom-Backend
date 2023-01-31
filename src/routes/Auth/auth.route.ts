@@ -1,9 +1,9 @@
 import { Router } from "express";
 import AppRouter from "../../interface/appRouter.interface";
 import validateschemaMiddleware from "../../middlewares/validateschema.middleware";
-import UserRegistrationPayloadSchema from "../../zodSchemas/UserRegistrationPayloadSchema";
+import UserRegistrationPayloadSchema from "./UserRegistrationPayloadSchema";
 import { login, signUp } from "./auth.handlers";
-import UserLoginPayloadSchema from "../../zodSchemas/UserLoginPayloadSchema";
+import UserLoginPayloadSchema from "./UserLoginPayloadSchema";
 
 class AuthRouter implements AppRouter{
     public path = '/auth'

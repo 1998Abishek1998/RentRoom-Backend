@@ -3,6 +3,7 @@ import AppRouter from "../../interface/appRouter.interface";
 import { responseHandler } from "../../utils/catchAndThrow";
 import AppError from "../../utils/AppError";
 import { deleteAddress, deleteCitizenship, updateAddress, updateCitizenship, updateUser } from "./user.handlers";
+import { authenticate } from "../../middlewares/authentication.middleware";
 
 class UserRouter implements AppRouter{
     public path = '/user'
@@ -14,15 +15,16 @@ class UserRouter implements AppRouter{
 
     private initializeRoutes(): void {
         this.router.route(`${this.path}/:id`)
-            .get(this.fetchUser)
-            .patch(updateUser)
+            .get(authenticate, this.fetchUser)
+            .patch(authenticate, updateUser)
+
         this.router.route(`${this.path}/address/:id`)
-            .patch(updateAddress)
-            .delete(deleteAddress)
+            .patch(authenticate, updateAddress)
+            .delete(authenticate, deleteAddress)
 
         this.router.route(`${this.path}/citizenship/:id`)
-            .patch(updateCitizenship)
-            .delete(deleteCitizenship)
+            .patch(authenticate, updateCitizenship)
+            .delete(authenticate, deleteCitizenship)
     }
 
     private async fetchUser(req: Request, res: Response, next: NextFunction){

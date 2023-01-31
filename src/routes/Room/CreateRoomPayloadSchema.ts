@@ -1,5 +1,5 @@
-import { isValidPhoneNumber } from "../utils/validators"
-import z from "./zod"
+import { isValidPhoneNumber } from "../../utils/validators"
+import z from "../../utils/zod"
 
 const CreateRoomPayloadSchema = z.object({
     description: z.string({ 'required_error': 'Please enter your description.'}),

@@ -1,5 +1,5 @@
-import { isValidEmail, isValidPhoneNumber } from "../utils/validators"
-import z from "./zod"
+import { isValidEmail, isValidPhoneNumber } from "../../utils/validators"
+import z from "../../utils/zod"
 
 const UserRegistrationPayloadSchema = z.object({
     username: z.string({ 'required_error': 'Please enter your username.'}),

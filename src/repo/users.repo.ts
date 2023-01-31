@@ -1,5 +1,5 @@
-import { UserLoginPayload } from "../zodSchemas/UserLoginPayloadSchema"
-import { UserRegistrationPayload } from "../zodSchemas/UserRegistrationPayloadSchema"
+import { UserLoginPayload } from "../routes/Auth/UserLoginPayloadSchema"
+import { UserRegistrationPayload } from "../routes/Auth/UserRegistrationPayloadSchema"
 
 interface UsersRepo{
     userRegistration(payload: UserRegistrationPayload, id: IdInterface, citizenId: IdInterface): Promise<number | undefined>

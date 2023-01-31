@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { UserRegistrationPayload } from "../zodSchemas/UserRegistrationPayloadSchema";
+import { UserRegistrationPayload } from "../routes/Auth/UserRegistrationPayloadSchema";
 import CitizenshipRepo from "../repo/citizenship.repo";
 
 class DbCitizenshipRepo implements CitizenshipRepo{

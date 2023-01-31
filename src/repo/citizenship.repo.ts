@@ -1,4 +1,4 @@
-import { UserRegistrationPayload } from "../zodSchemas/UserRegistrationPayloadSchema"
+import { UserRegistrationPayload } from "../routes/Auth/UserRegistrationPayloadSchema"
 
 interface CitizenshipRepo{
     citizenshipRegistration(payload: UserRegistrationPayload): Promise<any>

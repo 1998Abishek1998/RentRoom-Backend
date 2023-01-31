@@ -2,7 +2,7 @@ import { Router } from "express";
 import AppRouter from "../../interface/appRouter.interface";
 import { createRoom, getAllRooms, getSingleRoom, updateRoom } from "./room.handler";
 import validateschemaMiddleware from "../../middlewares/validateschema.middleware";
-import CreateRoomPayloadSchema from "../../zodSchemas/CreateRoomPayloadSchema";
+import CreateRoomPayloadSchema from "./CreateRoomPayloadSchema";
 import { authenticate } from "../../middlewares/authentication.middleware";
 
 class RoomRouter implements AppRouter{

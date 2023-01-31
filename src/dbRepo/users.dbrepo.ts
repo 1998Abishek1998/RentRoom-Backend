@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import UsersRepo, { IdInterface, ValidLogin } from "../repo/users.repo";
-import { UserRegistrationPayload } from "../zodSchemas/UserRegistrationPayloadSchema";
+import { UserRegistrationPayload } from "../routes/Auth/UserRegistrationPayloadSchema";
 import { compareSync, hashSync } from "bcrypt";
 
 class DbUsersRepo implements UsersRepo{

@@ -1,5 +1,5 @@
 import { PaginationFilter } from "../interface/pagination.interface"
-import { CreateRoomPayload } from "../zodSchemas/CreateRoomPayloadSchema"
+import { CreateRoomPayload } from "../routes/Room/CreateRoomPayloadSchema"
 import { IdInterface } from "./users.repo"
 
 interface RoomRepo{
